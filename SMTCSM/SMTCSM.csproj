@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net4.8</TargetFramework>
+	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+	<OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+	<PackageReference Include="NPSMLib" Version="0.9.14" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+build/
+*.dll
+*.lib
+*.exe
+*.exe.config
+Locales/*.qm

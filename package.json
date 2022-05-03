@@ -1,0 +1,35 @@
+{
+    "name": "com.lifegpc.smtc",
+    "version": "1.0.0",
+    "title": {
+        "en": "SMTC Sessions",
+        "zh": "SMTC 会话"
+    },
+    "description": {
+        "en": "Get System Media Transport Controls' session",
+        "zh": "获取SMTC(System Media Transport Controls)会话"
+    },
+    "homepage": "https://github.com/lifegpc",
+    "bugs": {
+        "email": "g1710431395@gmail.com"
+    },
+    "author": {"name": "lifegpc", "email": "g1710431395@gmail.com", "url": "https://github.com/lifegpc"},
+    "contributors": [],
+    "engines": {
+        "qt.quick": ">=2.12",
+        "nvg.api": "~1"
+    },
+    "resources": [
+        {
+            "location": "/data",
+            "catalog": "data",
+            "title": {
+                "en": "Media Player Data",
+                "zh": "媒体播放器数据",
+                "zh_TW": "媒體播放器數據",
+                "ja": "メディアプレイヤーデータ"
+            },
+            "entry": "qml/SMTC_Data.qml"
+        }
+    ]
+}
