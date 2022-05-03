@@ -7,6 +7,7 @@ typedef class SMTCSessionManager SMTCSessionManager;
 #define SOURCE_APP_ID 0
 #define TITLE 3
 #define ARTIST 4
+#define CLOSE_SOCKET 0xFF
 
 class SMTCSession : public QObject {
     Q_OBJECT

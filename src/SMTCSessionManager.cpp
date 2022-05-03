@@ -16,6 +16,13 @@ SMTCSessionManager::SMTCSessionManager(QObject* parent) : QObject(parent) {
 
 SMTCSessionManager::~SMTCSessionManager() {
     if (m_currentSession) delete m_currentSession;
+    if (m_socket.Connected()) {
+        char buf[1];
+        buf[0] = CLOSE_SOCKET;
+        if (m_socket.Send(buf) >= 1) {
+            m_socket.Recv(buf);
+        }
+    }
 }
 
 bool SMTCSessionManager::Inited() {
