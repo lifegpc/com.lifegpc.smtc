@@ -1,19 +1,20 @@
 #pragma once
 #include <Windows.h>
 #include <string>
+#include "QQmlExtensionPlugin"
 
-class SMTCSMServer {
+class SMTCSMServer: public QObject {
+    Q_OBJECT
 public:
-    SMTCSMServer();
+    explicit SMTCSMServer(QObject* parent = nullptr);
     std::string FindServer();
-    bool IsAlive();
-    bool IsStarted();
-    void Close();
-    bool Start();
+    Q_INVOKABLE bool Connected();
+    Q_INVOKABLE bool IsAlive();
+    Q_INVOKABLE bool IsStarted();
+    Q_INVOKABLE void Close();
+    Q_INVOKABLE bool Start();
 private:
     STARTUPINFOW m_si;
     PROCESS_INFORMATION m_pi;
     bool m_started = false;
 };
-
-SMTCSMServer& GetServer();

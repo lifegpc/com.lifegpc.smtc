@@ -49,3 +49,5 @@ QString SMTCSession::GetTitle() {
 QString SMTCSession::GetArtist() {
     return GetQString((char)ARTIST);
 }
+
+#include "moc_SMTCSession.cpp"

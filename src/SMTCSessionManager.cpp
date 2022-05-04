@@ -1,6 +1,5 @@
 #include "SMTCSessionManager.h"
 #include "SMTCSession.h"
-#include "SMTCSMServer.h"
 
 SMTCSessionManager::SMTCSessionManager(QObject* parent) : QObject(parent) {
     m_currentSession = new SMTCSession(this);
@@ -40,12 +39,11 @@ SMTCSession* SMTCSessionManager::GetCurrentSession() {
 bool SMTCSessionManager::Connect() {
     if (m_socket.Connected()) return true;
     if (m_socket.Connect()) return true;
-    if (GetServer().IsAlive()) return false;
-    if (!GetServer().Start()) return false;
-    if (m_socket.Connect()) return true;
     return false;
 }
 
 SocketHelper& SMTCSessionManager::GetSocket() {
     return m_socket;
 }
+
+#include "moc_SMTCSessionManager.cpp"

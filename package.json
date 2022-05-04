@@ -9,7 +9,7 @@
         "en": "Get System Media Transport Controls' session",
         "zh": "获取SMTC(System Media Transport Controls)会话"
     },
-    "homepage": "https://github.com/lifegpc",
+    "homepage": "https://github.com/lifegpc/com.lifegpc.smtc",
     "bugs": {
         "email": "g1710431395@gmail.com"
     },
@@ -19,6 +19,7 @@
         "qt.quick": ">=2.12",
         "nvg.api": "~1"
     },
+    "main": "qml/module.qml",
     "resources": [
         {
             "location": "/data",

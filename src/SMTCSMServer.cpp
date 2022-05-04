@@ -1,11 +1,10 @@
-#include "SMTCSMServer.h"
+#include "SocketHelper.h"
+#include "moc_SMTCSMServer.cpp"
 #include "DllMain.h"
 #include "fileop.h"
 #include "wchar_util.h"
 
-static class SMTCSMServer server;
-
-SMTCSMServer::SMTCSMServer() {
+SMTCSMServer::SMTCSMServer(QObject* parent): QObject(parent) {
     memset(&m_si, 0, sizeof(m_si));
     memset(&m_pi, 0, sizeof(m_pi));
     m_si.cb = sizeof(m_si);
@@ -66,9 +65,12 @@ bool SMTCSMServer::Start() {
         m_si.cb = sizeof(m_si);
         return false;
     }
+    m_started = true;
     return true;
 }
 
-SMTCSMServer& GetServer() {
-    return server;
+bool SMTCSMServer::Connected() {
+    SocketHelper socket;
+    if (!socket.Inited()) return false;
+    return socket.Connect();
 }

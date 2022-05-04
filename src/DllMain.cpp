@@ -18,9 +18,6 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved) {
             }
         }
         break;
-    case DLL_PROCESS_DETACH:
-        GetServer().Close();
-        break;
     default:
         break;
     }
