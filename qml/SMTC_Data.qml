@@ -1,12 +1,11 @@
 import QtQml 2.3
 import NERvGear.Templates 1.0 as T
-import "impl" 1.0 as SMTC
+import "impl" 1.0
 
 T.Data {
     id: root
     title: qsTr("SMTC Session Data")
     description: qsTr("Get music session data from System Media Transport Controls.")
-    property SMTC.SMTCSessionManager manager: SMTC.SMTCSessionManager { }
     values: [
         T.Value {
             name: "SourceAppId"
@@ -16,9 +15,9 @@ T.Data {
             status: T.Value.Null
             update.execute: function() {
                 status = T.Value.Null
-                if (manager.inited) {
-                    if (manager.currentSession.inited) {
-                        current = manager.currentSession.GetSourceAppId();
+                if (Manager.inited) {
+                    if (Manager.currentSession.inited) {
+                        current = Manager.currentSession.GetSourceAppId();
                         if (current.length) {
                             status = T.Value.Ready
                         }
@@ -34,9 +33,9 @@ T.Data {
             status: T.Value.Null
             update.execute: function() {
                 status = T.Value.Null
-                if (manager.inited) {
-                    if (manager.currentSession.inited) {
-                        current = manager.currentSession.GetTitle();
+                if (Manager.inited) {
+                    if (Manager.currentSession.inited) {
+                        current = Manager.currentSession.GetTitle();
                         if (current.length) {
                             status = T.Value.Ready
                         }
@@ -52,9 +51,9 @@ T.Data {
             status: T.Value.Null
             update.execute: function() {
                 status = T.Value.Null
-                if (manager.inited) {
-                    if (manager.currentSession.inited) {
-                        current = manager.currentSession.GetArtist();
+                if (Manager.inited) {
+                    if (Manager.currentSession.inited) {
+                        current = Manager.currentSession.GetArtist();
                         if (current.length) {
                             status = T.Value.Ready
                         }
