@@ -108,6 +108,50 @@ namespace SMTCSM {
             }
             return "";
         }
+        string GetSubtitle(NPSMLib.NowPlayingSession session) {
+            if (session == null) return "";
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                var obj = data.GetMediaObjectInfo();
+                if (obj.Artist != null) {
+                    return obj.Subtitle;
+                }
+            }
+            return "";
+        }
+        string GetAlbumArtist(NPSMLib.NowPlayingSession session) {
+            if (session == null) return "";
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                var obj = data.GetMediaObjectInfo();
+                if (obj.Artist != null) {
+                    return obj.AlbumArtist;
+                }
+            }
+            return "";
+        }
+        string GetAlbumTitle(NPSMLib.NowPlayingSession session) {
+            if (session == null) return "";
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                var obj = data.GetMediaObjectInfo();
+                if (obj.Artist != null) {
+                    return obj.AlbumTitle;
+                }
+            }
+            return "";
+        }
+        string GetMediaClassPrimaryId(NPSMLib.NowPlayingSession session) {
+            if (session == null) return "";
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                var obj = data.GetMediaObjectInfo();
+                if (obj.Artist != null) {
+                    return obj.MediaClassPrimaryID;
+                }
+            }
+            return "";
+        }
         string readString(ref NetworkStream stream, int length) {
             byte[] buffer = new byte[length];
             int readed = readData(ref stream, buffer, 0, length);
@@ -176,6 +220,18 @@ namespace SMTCSM {
                             break;
                         case 4:
                             data = encodeString(GetArtist(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 5:
+                            data = encodeString(GetSubtitle(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 6:
+                            data = encodeString(GetAlbumArtist(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 7:
+                            data = encodeString(GetAlbumTitle(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 8:
+                            data = encodeString(GetMediaClassPrimaryId(GetSession(ref stream, buffer, 1)));
                             break;
                         case 0xfe:
                             looped = false;

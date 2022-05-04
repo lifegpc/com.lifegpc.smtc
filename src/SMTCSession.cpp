@@ -50,4 +50,28 @@ QString SMTCSession::GetArtist() {
     return GetQString((char)ARTIST);
 }
 
+QString SMTCSession::GetSourceDeviceId() {
+    return GetQString((char)SOURCE_DEVICE_ID);
+}
+
+QString SMTCSession::GetRenderDeviceId() {
+    return GetQString((char)RENDER_DEVICE_ID);
+}
+
+QString SMTCSession::GetSubtitle() {
+    return GetQString((char)SUBTITLE);
+}
+
+QString SMTCSession::GetAlbumArtist() {
+    return GetQString((char)ALBUM_ARTIST);
+}
+
+QString SMTCSession::GetAlbumTitle() {
+    return GetQString((char)ALBUM_TITLE);
+}
+
+QString SMTCSession::GetMediaClassPrimaryId() {
+    return GetQString((char)MEDIA_CLASS_PRIMARY_ID);
+}
+
 #include "moc_SMTCSession.cpp"
