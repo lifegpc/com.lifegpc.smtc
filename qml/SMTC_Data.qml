@@ -104,7 +104,7 @@ T.Data {
                     message: qsTr("Specify the action if all keys are not recognized or the all values are not available.")
                     textRole: "label"
                     load: function (newData) {
-                        let newValue = 0;
+                        let newValue = defaultValue;
                         if (newData !== undefined) {
                             model.find(function(d, index) {
                                 if (d.data === newData) {
