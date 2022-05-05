@@ -20,6 +20,10 @@ class SMTCSession : public QObject {
     Q_PROPERTY(bool inited READ Inited)
     Q_PROPERTY(bool currentSession READ IsCurrentSession)
 public:
+    enum class ActionWhenDataNotFound { DO_NOTHING, REPLACE_WITH_EMPTY, REPLACE_WITH_UNDEFINED };
+    enum class ActionWhenAllDataNotFound { DO_NOTHING, TREAT_AS_NULL };
+    Q_ENUM(ActionWhenDataNotFound)
+    Q_ENUM(ActionWhenAllDataNotFound)
     explicit SMTCSession(QObject* parent = nullptr);
     void SetManager(SMTCSessionManager* manager = nullptr);
     void SetCurrentSession(bool current_session);
@@ -35,6 +39,7 @@ public:
     Q_INVOKABLE QString getAlbumArtist();
     Q_INVOKABLE QString getAlbumTitle();
     Q_INVOKABLE QString getMediaClassPrimaryId();
+    Q_INVOKABLE QString formatString(QString format, ActionWhenDataNotFound actionWhenDataNotFound = ActionWhenDataNotFound::DO_NOTHING, ActionWhenAllDataNotFound actionWhenAllDataNotFound = ActionWhenAllDataNotFound::TREAT_AS_NULL);
     void GetSendData(char buf[6]);
 private:
     SMTCSessionManager* m_manager = nullptr;

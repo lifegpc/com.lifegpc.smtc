@@ -6,15 +6,10 @@ CommonValue {
     current: ""
     minimum: ""
     maximum: ""
-    update.execute: function() {
-        status = T.Value.Null
-        if (Manager.inited) {
-            if (Manager.currentSession.inited) {
-                current = Manager.currentSession["get" + name](updateValueParam);
-                if (current.length) {
-                    status = T.Value.Ready
-                }
-            }
+    updateValueImpl: function(updateValueParam) {
+        current = Manager.currentSession["get" + name](updateValueParam);
+        if (current.length) {
+            status = T.Value.Ready
         }
     }
 }

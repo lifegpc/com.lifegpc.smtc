@@ -1,6 +1,7 @@
-#include "SMTCSession.h"
+#include "moc_SMTCSession.cpp"
 #include "SMTCSessionManager.h"
 #include <string.h>
+#include "str_util.h"
 
 SMTCSession::SMTCSession(QObject* parent) : QObject(parent) {};
 
@@ -74,4 +75,59 @@ QString SMTCSession::getMediaClassPrimaryId() {
     return GetQString((char)MEDIA_CLASS_PRIMARY_ID);
 }
 
-#include "moc_SMTCSession.cpp"
+QString SMTCSession::formatString(QString format, ActionWhenDataNotFound actionWhenDataNotFound, ActionWhenAllDataNotFound actionWhenAllDataNotFound) {
+    bool have_valid_data = false;
+    auto fstrl = str_util::str_split(format.toStdString(), "%");
+    bool is_origin_data = false;
+    if (fstrl.size() <= 1) return format;
+    for (auto i = fstrl.begin(); i != fstrl.end(); i++) {
+        is_origin_data = !is_origin_data;
+        auto &data = *i;
+        if (!is_origin_data) {
+            auto odata = data;
+            if (data == "title") {
+                data = getTitle().toStdString();
+            } else if (data == "artist") {
+                data = getArtist().toStdString();
+            } else if (data == "source_app_id") {
+                data = getSourceAppId().toStdString();
+            } else if (data == "source_device_id") {
+                data = getSourceDeviceId().toStdString();
+            } else if (data == "render_device_id") {
+                data = getRenderDeviceId().toStdString();
+            } else if (data == "subtitle") {
+                data = getSubtitle().toStdString();
+            } else if (data == "album" || data == "album_title") {
+                data = getAlbumTitle().toStdString();
+            } else if (data == "album_artist") {
+                data = getAlbumArtist().toStdString();
+            } else if (data == "media_class_primary_id") {
+                data = getMediaClassPrimaryId().toStdString();
+            } else {
+                data = "";
+            }
+            if (data.empty()) {
+                switch (actionWhenDataNotFound) {
+                case ActionWhenDataNotFound::DO_NOTHING:
+                    data = std::string("%") + odata + "%";
+                    break;
+                case ActionWhenDataNotFound::REPLACE_WITH_EMPTY:
+                    break;
+                case ActionWhenDataNotFound::REPLACE_WITH_UNDEFINED:
+                    data = "undefined";
+                    break;
+                }
+            } else {
+                have_valid_data = true;
+            }
+        }
+    }
+    if (!have_valid_data && actionWhenAllDataNotFound == ActionWhenAllDataNotFound::TREAT_AS_NULL) {
+        return "";
+    }
+    std::string re;
+    for (auto i = fstrl.begin(); i != fstrl.end(); i++) {
+        re += *i;
+    }
+    return QString::fromUtf8(re.c_str(), (int)re.size());
+}

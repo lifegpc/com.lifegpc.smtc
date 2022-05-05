@@ -1,4 +1,4 @@
-#include "SMTCSessionManager.h"
+#include "moc_SMTCSessionManager.cpp"
 #include "SMTCSession.h"
 
 SMTCSessionManager::SMTCSessionManager(QObject* parent) : QObject(parent) {
@@ -45,5 +45,3 @@ bool SMTCSessionManager::Connect() {
 SocketHelper& SMTCSessionManager::GetSocket() {
     return m_socket;
 }
-
-#include "moc_SMTCSessionManager.cpp"
