@@ -24,7 +24,7 @@ std::string SMTCSMServer::FindServer() {
     return "";
 }
 
-bool SMTCSMServer::IsAlive() {
+bool SMTCSMServer::isAlive() {
     if (!m_started) return false;
     DWORD code = 0;
     if (!GetExitCodeProcess(m_pi.hProcess, &code)) {
@@ -33,13 +33,13 @@ bool SMTCSMServer::IsAlive() {
     return code == STILL_ACTIVE;
 }
 
-bool SMTCSMServer::IsStarted() {
+bool SMTCSMServer::isStarted() {
     return m_started;
 }
 
-void SMTCSMServer::Close() {
+void SMTCSMServer::close() {
     if (m_started) {
-        if (IsAlive()) {
+        if (isAlive()) {
             TerminateProcess(m_pi.hProcess, 0);
         }
         CloseHandle(m_pi.hProcess);
@@ -50,8 +50,8 @@ void SMTCSMServer::Close() {
     }
 }
 
-bool SMTCSMServer::Start() {
-    Close();
+bool SMTCSMServer::start() {
+    close();
     std::string path = FindServer();
     if (path.empty()) return false;
     std::wstring wpath;
@@ -69,7 +69,7 @@ bool SMTCSMServer::Start() {
     return true;
 }
 
-bool SMTCSMServer::Connected() {
+bool SMTCSMServer::connected() {
     SocketHelper socket;
     if (!socket.Inited()) return false;
     return socket.Connect();

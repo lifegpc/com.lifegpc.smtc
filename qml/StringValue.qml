@@ -10,7 +10,7 @@ CommonValue {
         status = T.Value.Null
         if (Manager.inited) {
             if (Manager.currentSession.inited) {
-                current = Manager.currentSession["Get" + name](updateValueParam);
+                current = Manager.currentSession["get" + name](updateValueParam);
                 if (current.length) {
                     status = T.Value.Ready
                 }

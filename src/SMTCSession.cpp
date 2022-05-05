@@ -34,7 +34,7 @@ QString SMTCSession::GetQString(char id) {
     return std::move(QString::fromUtf8(data.c_str(), (int)data.size()));
 }
 
-QString SMTCSession::GetSourceAppId() {
+QString SMTCSession::getSourceAppId() {
     return GetQString((char)SOURCE_APP_ID);
 }
 
@@ -42,35 +42,35 @@ void SMTCSession::GetSendData(char buf[6]) {
     memset(buf + 1, 0, 5);
 }
 
-QString SMTCSession::GetTitle() {
+QString SMTCSession::getTitle() {
     return GetQString((char)TITLE);
 }
 
-QString SMTCSession::GetArtist() {
+QString SMTCSession::getArtist() {
     return GetQString((char)ARTIST);
 }
 
-QString SMTCSession::GetSourceDeviceId() {
+QString SMTCSession::getSourceDeviceId() {
     return GetQString((char)SOURCE_DEVICE_ID);
 }
 
-QString SMTCSession::GetRenderDeviceId() {
+QString SMTCSession::getRenderDeviceId() {
     return GetQString((char)RENDER_DEVICE_ID);
 }
 
-QString SMTCSession::GetSubtitle() {
+QString SMTCSession::getSubtitle() {
     return GetQString((char)SUBTITLE);
 }
 
-QString SMTCSession::GetAlbumArtist() {
+QString SMTCSession::getAlbumArtist() {
     return GetQString((char)ALBUM_ARTIST);
 }
 
-QString SMTCSession::GetAlbumTitle() {
+QString SMTCSession::getAlbumTitle() {
     return GetQString((char)ALBUM_TITLE);
 }
 
-QString SMTCSession::GetMediaClassPrimaryId() {
+QString SMTCSession::getMediaClassPrimaryId() {
     return GetQString((char)MEDIA_CLASS_PRIMARY_ID);
 }
 

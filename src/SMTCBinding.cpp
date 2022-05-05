@@ -6,7 +6,7 @@
 #include "QQmlEngine"
 
 void SMTCBinding::registerTypes(const char* uri) {
-    qmlRegisterType<SMTCSession>(uri, 1, 0, "SMTCSession");
+    qmlRegisterType<SMTCSession>();
     qmlRegisterSingletonType<SMTCSessionManager>(uri, 1, 0, "Manager", [](QQmlEngine* engine, QJSEngine* scriptEngine) -> QObject* {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)

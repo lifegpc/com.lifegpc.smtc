@@ -8,11 +8,11 @@ class SMTCSMServer: public QObject {
 public:
     explicit SMTCSMServer(QObject* parent = nullptr);
     std::string FindServer();
-    Q_INVOKABLE bool Connected();
-    Q_INVOKABLE bool IsAlive();
-    Q_INVOKABLE bool IsStarted();
-    Q_INVOKABLE void Close();
-    Q_INVOKABLE bool Start();
+    Q_INVOKABLE bool connected();
+    Q_INVOKABLE bool isAlive();
+    Q_INVOKABLE bool isStarted();
+    Q_INVOKABLE void close();
+    Q_INVOKABLE bool start();
 private:
     STARTUPINFOW m_si;
     PROCESS_INFORMATION m_pi;

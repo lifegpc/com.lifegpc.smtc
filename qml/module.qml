@@ -3,8 +3,8 @@ import "impl" 1.0
 
 NVG.Module {
     initialize: function() {
-        if (!Server.Connected()) {
-            if (!Server.Start()) {
+        if (!Server.connected()) {
+            if (!Server.start()) {
                 console.warn("Failed to start SMTCSM server.")
                 return false;
             }
@@ -13,6 +13,6 @@ NVG.Module {
         return true;
     }
     cleanup: function() {
-        Server.Close()
+        Server.close()
     }
 }

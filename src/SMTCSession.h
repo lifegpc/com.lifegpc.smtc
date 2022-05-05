@@ -26,15 +26,15 @@ public:
     bool IsCurrentSession();
     bool Inited();
     QString GetQString(char id);
-    Q_INVOKABLE QString GetSourceAppId();
-    Q_INVOKABLE QString GetSourceDeviceId();
-    Q_INVOKABLE QString GetRenderDeviceId();
-    Q_INVOKABLE QString GetTitle();
-    Q_INVOKABLE QString GetArtist();
-    Q_INVOKABLE QString GetSubtitle();
-    Q_INVOKABLE QString GetAlbumArtist();
-    Q_INVOKABLE QString GetAlbumTitle();
-    Q_INVOKABLE QString GetMediaClassPrimaryId();
+    Q_INVOKABLE QString getSourceAppId();
+    Q_INVOKABLE QString getSourceDeviceId();
+    Q_INVOKABLE QString getRenderDeviceId();
+    Q_INVOKABLE QString getTitle();
+    Q_INVOKABLE QString getArtist();
+    Q_INVOKABLE QString getSubtitle();
+    Q_INVOKABLE QString getAlbumArtist();
+    Q_INVOKABLE QString getAlbumTitle();
+    Q_INVOKABLE QString getMediaClassPrimaryId();
     void GetSendData(char buf[6]);
 private:
     SMTCSessionManager* m_manager = nullptr;
