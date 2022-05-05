@@ -4,6 +4,12 @@
     <TargetFramework>net4.8</TargetFramework>
 	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 	<OutputType>Exe</OutputType>
+	<Authors>lifegpc</Authors>
+	<Description>System Media Transport Controls Sessions Manager Server</Description>
+	<Copyright>Copyright (C) 2022  lifegpc</Copyright>
+	<PackageProjectUrl>https://github.com/lifegpc/com.lifegpc.smtc</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/lifegpc/com.lifegpc.smtc</RepositoryUrl>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
 	<PackageReference Include="NPSMLib" Version="0.9.14" />

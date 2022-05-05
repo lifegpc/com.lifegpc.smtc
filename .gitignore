@@ -4,3 +4,6 @@ build/
 *.exe
 *.exe.config
 Locales/*.qm
+*.qmlproject
+*.qmlproject.user
+*.qmltypes

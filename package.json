@@ -11,7 +11,8 @@
     },
     "homepage": "https://github.com/lifegpc/com.lifegpc.smtc",
     "bugs": {
-        "email": "g1710431395@gmail.com"
+        "email": "g1710431395@gmail.com",
+		"url": "https://github.com/lifegpc/com.lifegpc.smtc/issues"
     },
     "author": {"name": "lifegpc", "email": "g1710431395@gmail.com", "url": "https://github.com/lifegpc"},
     "contributors": [],
