@@ -164,6 +164,28 @@ namespace SMTCSM {
             }
             return new string[0];
         }
+        uint GetAlbumTrackCount(NPSMLib.NowPlayingSession session) {
+            if (session == null) return 0;
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                var obj = data.GetMediaObjectInfo();
+                if (obj.Artist != null) {
+                    return obj.AlbumTrackCount;
+                }
+            }
+            return 0;
+        }
+        uint GetTrackNumber(NPSMLib.NowPlayingSession session) {
+            if (session == null) return 0;
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                var obj = data.GetMediaObjectInfo();
+                if (obj.Artist != null) {
+                    return obj.TrackNumber;
+                }
+            }
+            return 0;
+        }
         string readString(ref NetworkStream stream, int length) {
             byte[] buffer = new byte[length];
             int readed = readData(ref stream, buffer, 0, length);
@@ -194,6 +216,18 @@ namespace SMTCSM {
                 Array.Reverse(data);
             }
             Array.Copy(data, 0, buffer, offset, 4);
+        }
+        void encodeUint(byte[] buffer, int offset, uint data) {
+            byte[] d = BitConverter.GetBytes(data);
+            if (!BitConverter.IsLittleEndian) {
+                Array.Reverse(d);
+            }
+            Array.Copy(d, 0, buffer, offset, 4);
+        }
+        byte[] encodeUint(uint data) {
+            byte[] d = new byte[4];
+            encodeUint(d, 0, data);
+            return d;
         }
         string decodeString(byte[] str, int offset, int length) {
             Encoding utf8 = Encoding.UTF8;
@@ -268,6 +302,12 @@ namespace SMTCSM {
                             break;
                         case 9:
                             data = encodeStrings(GetGenres(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 10:
+                            data = encodeUint(GetAlbumTrackCount(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 11:
+                            data = encodeUint(GetTrackNumber(GetSession(ref stream, buffer, 1)));
                             break;
                         case 0xfe:
                             looped = false;

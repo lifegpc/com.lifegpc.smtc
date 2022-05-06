@@ -1,7 +1,14 @@
 #include "moc_SMTCSession.cpp"
 #include "SMTCSessionManager.h"
+#include <inttypes.h>
 #include <string.h>
 #include "str_util.h"
+
+#define INT_CONVERT_TO_STRING(target, src, fmt) { \
+    char tmp[64]; \
+    snprintf(tmp, sizeof(tmp), "%" fmt, src); \
+    target = tmp; \
+}
 
 SMTCSession::SMTCSession(QObject* parent) : QObject(parent) {};
 
@@ -127,6 +134,12 @@ QString SMTCSession::formatString(QString format, ActionWhenDataNotFound actionW
                 auto arg = str_util::str_split(data, "|", 2);
                 std::string sep = arg.size() == 1 ? ", " : arg.back();
                 data = JoinQStringList(getGenres(), QString::fromUtf8(sep.c_str(), (int)sep.size())).toStdString();
+            } else if (data == "album_track_count") {
+                quint32 num = getAlbumTrackCount();
+                if (num != 0) INT_CONVERT_TO_STRING(data, num, PRIu32) else data = "";
+            } else if (data == "track_number") {
+                quint32 num = getTrackNumber();
+                if (num != 0) INT_CONVERT_TO_STRING(data, num, PRIu32) else data = "";
             } else {
                 data = "";
             }
@@ -169,4 +182,22 @@ QString SMTCSession::JoinQStringList(QList<QString>& list, QString sep) {
         }
     }
     return tmp;
+}
+
+quint32 SMTCSession::GetUint32(char id) {
+    if (!m_inited) return 0;
+    char buf[6];
+    GetSendData(buf);
+    buf[0] = id;
+    if (!m_manager->Connect()) return 0;
+    if (m_manager->GetSocket().Send(buf) < 6) return 0;
+    return m_manager->GetSocket().RecvUInt32();
+}
+
+quint32 SMTCSession::getAlbumTrackCount() {
+    return GetUint32((char)ALBUM_TRACK_COUNT);
+}
+
+quint32 SMTCSession::getTrackNumber() {
+    return GetUint32((char)TRACK_NUMBER);
 }

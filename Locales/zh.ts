@@ -104,58 +104,78 @@
         <translation>媒体的流派。</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="62"/>
+        <location filename="../qml/SMTC_Data.qml" line="63"/>
+        <source>Album track count</source>
+        <translation>专辑轨道数</translation>
+    </message>
+    <message>
+        <location filename="../qml/SMTC_Data.qml" line="64"/>
+        <source>The track count of the album.</source>
+        <translation>专辑的轨道数量。</translation>
+    </message>
+    <message>
+        <location filename="../qml/SMTC_Data.qml" line="69"/>
+        <source>Track number</source>
+        <translation>音轨号</translation>
+    </message>
+    <message>
+        <location filename="../qml/SMTC_Data.qml" line="70"/>
+        <source>The track number of the current song in the album.</source>
+        <translation>当前播放的歌在专辑中的音轨号。</translation>
+    </message>
+    <message>
+        <location filename="../qml/SMTC_Data.qml" line="74"/>
         <source>Custom text</source>
         <translation>自定义文本</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="129"/>
+        <location filename="../qml/SMTC_Data.qml" line="141"/>
         <source>Format string</source>
         <translation>格式化字符串</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="131"/>
+        <location filename="../qml/SMTC_Data.qml" line="143"/>
         <source>Available fields</source>
         <translation>可用字段</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="77"/>
+        <location filename="../qml/SMTC_Data.qml" line="89"/>
         <source>Action when data not found</source>
         <translation>当数据找不到时的行为</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="79"/>
-        <location filename="../qml/SMTC_Data.qml" line="106"/>
+        <location filename="../qml/SMTC_Data.qml" line="91"/>
+        <location filename="../qml/SMTC_Data.qml" line="118"/>
         <source>Do nothing</source>
         <translation>什么都不做</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="80"/>
+        <location filename="../qml/SMTC_Data.qml" line="92"/>
         <source>Replace with empty string</source>
         <translation>用空字符串替换</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="81"/>
+        <location filename="../qml/SMTC_Data.qml" line="93"/>
         <source>Replace with &quot;undefined&quot;</source>
         <translation>用undefined替换</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="83"/>
+        <location filename="../qml/SMTC_Data.qml" line="95"/>
         <source>Specify the action if one key is not recognized or the value of that key is not available.</source>
         <translation>指定当一个字段不被识别或该字段的值不可用时的行为。</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="103"/>
+        <location filename="../qml/SMTC_Data.qml" line="115"/>
         <source>Action when all data not found</source>
         <translation>当所有数据找不到时的行为</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="107"/>
+        <location filename="../qml/SMTC_Data.qml" line="119"/>
         <source>Return as empty string</source>
         <translation>返回空字符串</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="109"/>
+        <location filename="../qml/SMTC_Data.qml" line="121"/>
         <source>Specify the action if all keys are not recognized or the all values are not available.</source>
         <translation>指定当所有字段不被识别或所有字段的值不可用时的行为。</translation>
     </message>

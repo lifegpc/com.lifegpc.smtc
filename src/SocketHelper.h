@@ -29,6 +29,7 @@ public:
     std::string RecvAll(int len);
     std::string RecvString();
     std::list<std::string> RecvStrings();
+    uint32_t RecvUInt32();
 private:
     void HandleErrorCode();
     int32_t m_port;

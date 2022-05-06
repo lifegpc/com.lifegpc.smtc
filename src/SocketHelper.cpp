@@ -161,3 +161,10 @@ std::list<std::string> SocketHelper::RecvStrings() {
     }
     return res;
 }
+
+uint32_t SocketHelper::RecvUInt32() {
+    char buf[4];
+    int re = Recv(buf);
+    if (re < 4) return 0;
+    return cstr_read_uint32((const uint8_t*)buf, 0);
+}

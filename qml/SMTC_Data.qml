@@ -57,6 +57,18 @@ T.Data {
             title: qsTr("Genres")
             description: qsTr("The genres of the media.")
         },
+        IntValue {
+            name: "AlbumTrackCount"
+            minimum: 1
+            title: qsTr("Album track count")
+            description: qsTr("The track count of the album.")
+        },
+        IntValue {
+            name: "TrackNumber"
+            minimum: 1
+            title: qsTr("Track number")
+            description: qsTr("The track number of the current song in the album.")
+        },
         StringValue {
             name: "custom"
             title: qsTr("Custom text")
@@ -128,7 +140,7 @@ T.Data {
                     name: "format"
                     label: qsTr("Format string")
                     hint: "%title% - %artist%"
-                    message: qsTr("Available fields") + ": %title%, %artist%, %source_app_id%, %source_device_id%, %render_device_id%, %subtitle%, %album% (%album_title%), %album_artist%, %media_class_primary_id%, %genres[|<separator>]%"
+                    message: qsTr("Available fields") + ": %title%, %artist%, %source_app_id%, %source_device_id%, %render_device_id%, %subtitle%, %album% (%album_title%), %album_artist%, %media_class_primary_id%, %genres[|<separator>]%, %album_track_count%, %track_number%"
                 }
             }
         }

@@ -14,6 +14,8 @@ typedef class SMTCSessionManager SMTCSessionManager;
 #define ALBUM_TITLE 7
 #define MEDIA_CLASS_PRIMARY_ID 8
 #define GENRES 9
+#define ALBUM_TRACK_COUNT 10
+#define TRACK_NUMBER 11
 #define CLOSE_SOCKET 0xFF
 
 class SMTCSession : public QObject {
@@ -32,6 +34,7 @@ public:
     bool Inited();
     QString GetQString(char id);
     QList<QString> GetQStringList(char id);
+    quint32 GetUint32(char id);
     QString JoinQStringList(QList<QString>& list, QString sep);
     Q_INVOKABLE QString getSourceAppId();
     Q_INVOKABLE QString getSourceDeviceId();
@@ -43,6 +46,8 @@ public:
     Q_INVOKABLE QString getAlbumTitle();
     Q_INVOKABLE QString getMediaClassPrimaryId();
     Q_INVOKABLE QList<QString> getGenres();
+    Q_INVOKABLE quint32 getAlbumTrackCount();
+    Q_INVOKABLE quint32 getTrackNumber();
     Q_INVOKABLE QString formatString(QString format, ActionWhenDataNotFound actionWhenDataNotFound = ActionWhenDataNotFound::DO_NOTHING, ActionWhenAllDataNotFound actionWhenAllDataNotFound = ActionWhenAllDataNotFound::TREAT_AS_NULL);
     void GetSendData(char buf[6]);
 private:
