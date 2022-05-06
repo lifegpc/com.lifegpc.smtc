@@ -148,3 +148,16 @@ std::string SocketHelper::RecvString() {
     if (length <= 0) return "";
     return RecvAll((int)length);
 }
+
+std::list<std::string> SocketHelper::RecvStrings() {
+    char buf[4];
+    int re = Recv(buf);
+    if (re < 4) return std::list<std::string>();
+    int32_t length = cstr_read_int32((const uint8_t*)buf, 0);
+    if (length <= 0) return std::list<std::string>();
+    std::list<std::string> res;
+    for (int i = 0; i < length; i++) {
+        res.push_back(RecvString());
+    }
+    return res;
+}

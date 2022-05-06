@@ -7,3 +7,5 @@ Locales/*.qm
 *.qmlproject
 *.qmlproject.user
 *.qmltypes
+.vscode/
+

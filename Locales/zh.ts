@@ -95,57 +95,67 @@
     </message>
     <message>
         <location filename="../qml/SMTC_Data.qml" line="57"/>
+        <source>Genres</source>
+        <translation>流派</translation>
+    </message>
+    <message>
+        <location filename="../qml/SMTC_Data.qml" line="58"/>
+        <source>The genres of the media.</source>
+        <translation>媒体的流派。</translation>
+    </message>
+    <message>
+        <location filename="../qml/SMTC_Data.qml" line="62"/>
         <source>Custom text</source>
         <translation>自定义文本</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="72"/>
+        <location filename="../qml/SMTC_Data.qml" line="129"/>
         <source>Format string</source>
         <translation>格式化字符串</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="74"/>
+        <location filename="../qml/SMTC_Data.qml" line="131"/>
         <source>Available fields</source>
         <translation>可用字段</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="78"/>
+        <location filename="../qml/SMTC_Data.qml" line="77"/>
         <source>Action when data not found</source>
         <translation>当数据找不到时的行为</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="80"/>
-        <location filename="../qml/SMTC_Data.qml" line="107"/>
+        <location filename="../qml/SMTC_Data.qml" line="79"/>
+        <location filename="../qml/SMTC_Data.qml" line="106"/>
         <source>Do nothing</source>
         <translation>什么都不做</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="81"/>
+        <location filename="../qml/SMTC_Data.qml" line="80"/>
         <source>Replace with empty string</source>
         <translation>用空字符串替换</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="82"/>
+        <location filename="../qml/SMTC_Data.qml" line="81"/>
         <source>Replace with &quot;undefined&quot;</source>
         <translation>用undefined替换</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="84"/>
+        <location filename="../qml/SMTC_Data.qml" line="83"/>
         <source>Specify the action if one key is not recognized or the value of that key is not available.</source>
         <translation>指定当一个字段不被识别或该字段的值不可用时的行为。</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="104"/>
+        <location filename="../qml/SMTC_Data.qml" line="103"/>
         <source>Action when all data not found</source>
         <translation>当所有数据找不到时的行为</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="108"/>
+        <location filename="../qml/SMTC_Data.qml" line="107"/>
         <source>Return as empty string</source>
         <translation>返回空字符串</translation>
     </message>
     <message>
-        <location filename="../qml/SMTC_Data.qml" line="110"/>
+        <location filename="../qml/SMTC_Data.qml" line="109"/>
         <source>Specify the action if all keys are not recognized or the all values are not available.</source>
         <translation>指定当所有字段不被识别或所有字段的值不可用时的行为。</translation>
     </message>
@@ -153,6 +163,19 @@
         <location filename="../qml/SMTC_Data.qml" line="33"/>
         <source>Artist</source>
         <translation>艺术家</translation>
+    </message>
+</context>
+<context>
+    <name>StringListValue</name>
+    <message>
+        <location filename="../qml/StringListValue.qml" line="18"/>
+        <source>Separator</source>
+        <translation>分隔符</translation>
+    </message>
+    <message>
+        <location filename="../qml/StringListValue.qml" line="20"/>
+        <source>Specify the string to separate each pair of elements in array.</source>
+        <translation>指定用来分隔每个元素的分隔符。</translation>
     </message>
 </context>
 </TS>

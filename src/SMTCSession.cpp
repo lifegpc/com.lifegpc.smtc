@@ -35,6 +35,22 @@ QString SMTCSession::GetQString(char id) {
     return std::move(QString::fromUtf8(data.c_str(), (int)data.size()));
 }
 
+QList<QString> SMTCSession::GetQStringList(char id) {
+    if (!m_inited) return QList<QString>();
+    char buf[6];
+    GetSendData(buf);
+    buf[0] = id;
+    if (!m_manager->Connect()) return QList<QString>();
+    if (m_manager->GetSocket().Send(buf) < 6) return QList<QString>();
+    QList<QString> li;
+    auto data = m_manager->GetSocket().RecvStrings();
+    for (auto i = data.begin(); i != data.end(); i++) {
+        auto &s = *i;
+        li.push_back(QString::fromUtf8(s.c_str(), (int)s.size()));
+    }
+    return li;
+}
+
 QString SMTCSession::getSourceAppId() {
     return GetQString((char)SOURCE_APP_ID);
 }
@@ -75,6 +91,10 @@ QString SMTCSession::getMediaClassPrimaryId() {
     return GetQString((char)MEDIA_CLASS_PRIMARY_ID);
 }
 
+QList<QString> SMTCSession::getGenres() {
+    return GetQStringList((char)GENRES);
+}
+
 QString SMTCSession::formatString(QString format, ActionWhenDataNotFound actionWhenDataNotFound, ActionWhenAllDataNotFound actionWhenAllDataNotFound) {
     bool have_valid_data = false;
     auto fstrl = str_util::str_split(format.toStdString(), "%");
@@ -103,6 +123,10 @@ QString SMTCSession::formatString(QString format, ActionWhenDataNotFound actionW
                 data = getAlbumArtist().toStdString();
             } else if (data == "media_class_primary_id") {
                 data = getMediaClassPrimaryId().toStdString();
+            } else if (data == "genres" || data.find("genres|") == 0) {
+                auto arg = str_util::str_split(data, "|", 2);
+                std::string sep = arg.size() == 1 ? ", " : arg.back();
+                data = JoinQStringList(getGenres(), QString::fromUtf8(sep.c_str(), (int)sep.size())).toStdString();
             } else {
                 data = "";
             }
@@ -130,4 +154,19 @@ QString SMTCSession::formatString(QString format, ActionWhenDataNotFound actionW
         re += *i;
     }
     return QString::fromUtf8(re.c_str(), (int)re.size());
+}
+
+QString SMTCSession::JoinQStringList(QList<QString>& list, QString sep) {
+    QString tmp;
+    bool first = true;
+    for (auto i = list.begin(); i != list.end(); i++) {
+        if (first) {
+            tmp = *i;
+            first = false;
+        } else {
+            tmp += sep;
+            tmp += *i;
+        }
+    }
+    return tmp;
 }

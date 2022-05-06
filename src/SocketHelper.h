@@ -2,6 +2,7 @@
 
 #include <WinSock2.h>
 #include <stdint.h>
+#include <list>
 #include <string>
 
 class SocketHelper {
@@ -27,6 +28,7 @@ public:
     std::string Recv(int len, int flag = 0);
     std::string RecvAll(int len);
     std::string RecvString();
+    std::list<std::string> RecvStrings();
 private:
     void HandleErrorCode();
     int32_t m_port;

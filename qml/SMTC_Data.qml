@@ -52,6 +52,11 @@ T.Data {
             name: "MediaClassPrimaryId"
             title: qsTr("Media class primary id")
         },
+        StringListValue {
+            name: "Genres"
+            title: qsTr("Genres")
+            description: qsTr("The genres of the media.")
+        },
         StringValue {
             name: "custom"
             title: qsTr("Custom text")
@@ -123,7 +128,7 @@ T.Data {
                     name: "format"
                     label: qsTr("Format string")
                     hint: "%title% - %artist%"
-                    message: qsTr("Available fields") + ": %title%, %artist%, %source_app_id%, %source_device_id%, %render_device_id%, %subtitle%, %album% (%album_title%), %album_artist%, %media_class_primary_id%"
+                    message: qsTr("Available fields") + ": %title%, %artist%, %source_app_id%, %source_device_id%, %render_device_id%, %subtitle%, %album% (%album_title%), %album_artist%, %media_class_primary_id%, %genres[|<separator>]%"
                 }
             }
         }

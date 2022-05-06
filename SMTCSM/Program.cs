@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -152,6 +153,17 @@ namespace SMTCSM {
             }
             return "";
         }
+        string[] GetGenres(NPSMLib.NowPlayingSession session) {
+            if (session == null) return new string[0];
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                var obj = data.GetMediaObjectInfo();
+                if (obj.Artist != null) {
+                    return obj.Genres;
+                }
+            }
+            return new string[0];
+        }
         string readString(ref NetworkStream stream, int length) {
             byte[] buffer = new byte[length];
             int readed = readData(ref stream, buffer, 0, length);
@@ -196,6 +208,27 @@ namespace SMTCSM {
             Array.Copy(buffer, 0, result, 4, length);
             return result;
         }
+        byte[] encodeStrings(string[] strs) {
+            Encoding utf8 = Encoding.UTF8;
+            int array_len = strs.Length;
+            int length = 0;
+            List<byte[]> enstrs = new List<byte[]>();
+            for (int i = 0; i < array_len; i++) {
+                byte[] tmp = utf8.GetBytes(strs[i]);
+                enstrs.Add(tmp);
+                length += tmp.Length;
+            }
+            byte[] result = new byte[4 + array_len * 4 + length];
+            encodeLength(result, 0, array_len);
+            int offset = 4;
+            for (int i = 0; i < array_len; i++) {
+                encodeLength(result, offset, enstrs[i].Length);
+                offset += 4;
+                Array.Copy(enstrs[i], 0, result, offset, enstrs[i].Length);
+                offset += enstrs[i].Length;
+            }
+            return result;
+        }
         public bool Handle(ref TcpClient client) {
             var stream = client.GetStream();
             try {
@@ -232,6 +265,9 @@ namespace SMTCSM {
                             break;
                         case 8:
                             data = encodeString(GetMediaClassPrimaryId(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 9:
+                            data = encodeStrings(GetGenres(GetSession(ref stream, buffer, 1)));
                             break;
                         case 0xfe:
                             looped = false;
