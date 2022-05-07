@@ -70,6 +70,11 @@ T.Data {
             description: qsTr("The track number of the current song in the album.")
         },
         StringValue {
+            name: "Thumbnail"
+            title: qsTr("Thumbnail")
+            description: qsTr("The thumbnail of the media.")
+        },
+        StringValue {
             name: "custom"
             title: qsTr("Custom text")
             updateValueImpl: function(updateValueParam) {

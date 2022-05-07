@@ -2,6 +2,7 @@
 #include "SMTCSessionManager.h"
 #include <inttypes.h>
 #include <string.h>
+#include "fileop.h"
 #include "str_util.h"
 
 #define INT_CONVERT_TO_STRING(target, src, fmt) { \
@@ -200,4 +201,80 @@ quint32 SMTCSession::getAlbumTrackCount() {
 
 quint32 SMTCSession::getTrackNumber() {
     return GetUint32((char)TRACK_NUMBER);
+}
+
+std::string SMTCSession::getThumbnailHash() {
+    if (!m_inited) return "";
+    char buf[6];
+    buf[0] = (char)THUMBNAIL_HASH;
+    GetSendData(buf);
+    if (!m_manager->Connect()) return "";
+    if (m_manager->GetSocket().Send(buf) < 6) return "";
+    char re[64];
+    if (m_manager->GetSocket().Recv(re) < 64) return "";
+    return std::string(re, 64);
+}
+
+void SMTCSession::close(bool force) {
+    cleanWaited();
+    if (!m_currentThumbnailFile.empty()) {
+        if (fileop::exists(m_currentThumbnailFile)) {
+            if (!fileop::remove(m_currentThumbnailFile)) {
+                m_waitToClean.push_back(m_currentThumbnailFile);
+            }
+        }
+        m_currentThumbnailFile = "";
+    }
+    m_currentThumbnailHash = "";
+    if (force) {
+        fileop::fcloseall();
+        cleanWaited();
+    }
+}
+
+void SMTCSession::cleanWaited() {
+    for (auto i = m_waitToClean.begin(); i != m_waitToClean.end(); i++) {
+        auto& d = *i;
+        if (!fileop::exists(d) || fileop::remove(d)) {
+            m_waitToClean.remove(d);
+            i = m_waitToClean.begin();
+        }
+    }
+}
+
+SMTCSession::~SMTCSession() {
+    close();
+}
+
+QString SMTCSession::getThumbnail() {
+    auto now_hash = getThumbnailHash();
+    if (now_hash.empty() || m_manager->IsInBlackList(now_hash)) {
+        close(false);
+        return "";
+    }
+    if (now_hash == m_currentThumbnailHash) {
+        if (fileop::exists(m_currentThumbnailFile)) {
+            cleanWaited();
+            return getFileUrl(m_currentThumbnailFile);
+        }
+    }
+    auto file = getThumbnailFile();
+    if (file.empty() || !fileop::exists(file)) {
+        close(false);
+        return "";
+    }
+    close(false);
+    m_currentThumbnailHash = now_hash;
+    m_currentThumbnailFile = file;
+    return getFileUrl(m_currentThumbnailFile);
+}
+
+std::string SMTCSession::getThumbnailFile() {
+    return GetQString((char)THUMBNAIL_FILE).toStdString();
+}
+
+QString SMTCSession::getFileUrl(std::string file) {
+    auto tmp = str_util::str_replace(file, "\\", "/");
+    tmp = "file:///" + tmp;
+    return QString::fromUtf8(tmp.c_str(), (int)tmp.size());
 }

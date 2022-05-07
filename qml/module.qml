@@ -13,6 +13,7 @@ NVG.Module {
         return true;
     }
     cleanup: function() {
+        Manager.close()
         Server.close()
     }
 }

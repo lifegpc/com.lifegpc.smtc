@@ -16,6 +16,8 @@ typedef class SMTCSessionManager SMTCSessionManager;
 #define GENRES 9
 #define ALBUM_TRACK_COUNT 10
 #define TRACK_NUMBER 11
+#define THUMBNAIL_HASH 12
+#define THUMBNAIL_FILE 13
 #define CLOSE_SOCKET 0xFF
 
 class SMTCSession : public QObject {
@@ -28,6 +30,7 @@ public:
     Q_ENUM(ActionWhenDataNotFound)
     Q_ENUM(ActionWhenAllDataNotFound)
     explicit SMTCSession(QObject* parent = nullptr);
+    ~SMTCSession();
     void SetManager(SMTCSessionManager* manager = nullptr);
     void SetCurrentSession(bool current_session);
     bool IsCurrentSession();
@@ -48,10 +51,19 @@ public:
     Q_INVOKABLE QList<QString> getGenres();
     Q_INVOKABLE quint32 getAlbumTrackCount();
     Q_INVOKABLE quint32 getTrackNumber();
+    std::string getThumbnailHash();
+    std::string getThumbnailFile();
+    QString getFileUrl(std::string file);
+    Q_INVOKABLE QString getThumbnail();
     Q_INVOKABLE QString formatString(QString format, ActionWhenDataNotFound actionWhenDataNotFound = ActionWhenDataNotFound::DO_NOTHING, ActionWhenAllDataNotFound actionWhenAllDataNotFound = ActionWhenAllDataNotFound::TREAT_AS_NULL);
+    Q_INVOKABLE void close(bool force = false);
     void GetSendData(char buf[6]);
+    void cleanWaited();
 private:
     SMTCSessionManager* m_manager = nullptr;
+    std::string m_currentThumbnailHash = "";
+    std::string m_currentThumbnailFile = "";
+    std::list<std::string> m_waitToClean;
     bool m_inited = false;
     bool m_current_session = false;
 };

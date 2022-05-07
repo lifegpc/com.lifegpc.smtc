@@ -22,6 +22,8 @@ add_subdirectory(utils)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/utils")
 
 set(PLUGIN_SOURCES
+src/BlackList.h
+src/BlackList.cpp
 src/DllMain.h
 src/DllMain.cpp
 src/SMTCBinding.h

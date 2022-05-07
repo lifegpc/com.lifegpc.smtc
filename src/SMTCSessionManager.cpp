@@ -14,14 +14,8 @@ SMTCSessionManager::SMTCSessionManager(QObject* parent) : QObject(parent) {
 }
 
 SMTCSessionManager::~SMTCSessionManager() {
+    close();
     if (m_currentSession) delete m_currentSession;
-    if (m_socket.Connected()) {
-        char buf[1];
-        buf[0] = (char)CLOSE_SOCKET;
-        if (m_socket.Send(buf) >= 1) {
-            m_socket.Recv(buf);
-        }
-    }
 }
 
 bool SMTCSessionManager::Inited() {
@@ -44,4 +38,19 @@ bool SMTCSessionManager::Connect() {
 
 SocketHelper& SMTCSessionManager::GetSocket() {
     return m_socket;
+}
+
+void SMTCSessionManager::close() {
+    if (m_socket.Connected()) {
+        char buf[1];
+        buf[0] = (char)CLOSE_SOCKET;
+        if (m_socket.Send(buf) >= 1) {
+            m_socket.Recv(buf);
+        }
+    }
+    if (m_currentSession) m_currentSession->close(true);
+}
+
+bool SMTCSessionManager::IsInBlackList(std::string& entry) {
+    return m_blackList.isInclude(entry);
 }

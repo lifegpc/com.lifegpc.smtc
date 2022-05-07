@@ -1,5 +1,6 @@
 #include "SocketHelper.h"
 #include "moc_SMTCSMServer.cpp"
+#include "SMTCSession.h"
 #include "DllMain.h"
 #include "fileop.h"
 #include "wchar_util.h"
@@ -72,5 +73,13 @@ bool SMTCSMServer::start() {
 bool SMTCSMServer::connected() {
     SocketHelper socket;
     if (!socket.Inited()) return false;
-    return socket.Connect();
+    auto re = socket.Connect();
+    if (re) {
+        char buf[1];
+        buf[0] = (char)CLOSE_SOCKET;
+        if (socket.Send(buf) >= 1) {
+            socket.Recv(buf);
+        }
+    }
+    return re;
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -186,6 +188,37 @@ namespace SMTCSM {
             }
             return 0;
         }
+        Stream GetThubnailStream(NPSMLib.NowPlayingSession session) {
+            if (session == null) return null;
+            var data = session.ActivateMediaPlaybackDataSource();
+            if (data != null) {
+                return data.GetThumbnailStream();
+            }
+            return null;
+        }
+        byte[] GetThubnailStreamHash(NPSMLib.NowPlayingSession session) {
+            var stream = GetThubnailStream(session);
+            if (stream != null) {
+                byte[] hash = calHash(ref stream);
+                stream.Dispose();
+                return hash;
+            }
+            return new byte[0];
+        }
+        string GetThubnailFilename(NPSMLib.NowPlayingSession session) {
+            var stream = GetThubnailStream(session);
+            if (stream != null) {
+                var path = Path.GetTempFileName();
+                var s = File.Create(path);
+                stream.CopyTo(s);
+                stream.Close();
+                s.Close();
+                stream.Dispose();
+                s.Dispose();
+                return path;
+            }
+            return "";
+        }
         string readString(ref NetworkStream stream, int length) {
             byte[] buffer = new byte[length];
             int readed = readData(ref stream, buffer, 0, length);
@@ -263,6 +296,13 @@ namespace SMTCSM {
             }
             return result;
         }
+        byte[] calHash(ref Stream stream) {
+            SHA512Managed sha512 = new SHA512Managed();
+            sha512.ComputeHash(stream);
+            byte[] result = sha512.Hash;
+            sha512.Dispose();
+            return result;
+        }
         public bool Handle(ref TcpClient client) {
             var stream = client.GetStream();
             try {
@@ -308,6 +348,12 @@ namespace SMTCSM {
                             break;
                         case 11:
                             data = encodeUint(GetTrackNumber(GetSession(ref stream, buffer, 1)));
+                            break;
+                        case 12:
+                            data = GetThubnailStreamHash(GetSession(ref stream, buffer, 1));
+                            break;
+                        case 13:
+                            data = encodeString(GetThubnailFilename(GetSession(ref stream, buffer, 1)));
                             break;
                         case 0xfe:
                             looped = false;
