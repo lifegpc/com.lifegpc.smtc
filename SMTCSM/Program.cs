@@ -199,9 +199,13 @@ namespace SMTCSM {
         byte[] GetThubnailStreamHash(NPSMLib.NowPlayingSession session) {
             var stream = GetThubnailStream(session);
             if (stream != null) {
-                byte[] hash = calHash(ref stream);
-                stream.Dispose();
-                return hash;
+                byte[] hash = null;
+                try {
+                    hash = calHash(ref stream);
+                } finally {
+                    stream.Dispose();
+                }
+                return hash == null ? new byte[0] : hash;
             }
             return new byte[0];
         }
@@ -298,9 +302,13 @@ namespace SMTCSM {
         }
         byte[] calHash(ref Stream stream) {
             SHA512Managed sha512 = new SHA512Managed();
-            sha512.ComputeHash(stream);
-            byte[] result = sha512.Hash;
-            sha512.Dispose();
+            byte[] result = null;
+            try {
+                sha512.ComputeHash(stream);
+                result = sha512.Hash;
+            } finally {
+                sha512.Dispose();
+            }
             return result;
         }
         public bool Handle(ref TcpClient client) {
